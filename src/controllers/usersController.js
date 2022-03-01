@@ -5,7 +5,6 @@ export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("Remove User");
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
-  console.log(req.body);
   const { name, username, email, password, password2, location } = req.body;
   if (password !== password2) {
     return res.render("join", {
@@ -58,7 +57,8 @@ export const postLogin = async (req, res) => {
       errorMessage: "Wrong password",
     });
   }
-  console.log("LOG USER IN : COMING SOON!");
+  req.session.loggedIn = true;
+  req.session.user = user;
   return res.redirect("/");
 };
 export const logout = (req, res) => res.send("Lougut");
